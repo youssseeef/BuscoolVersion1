@@ -22,6 +22,7 @@ import com.google.android.gms.location.LocationServices;
 public class CreateNewClientActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private LocationManager loc;
     private Button mGetLocationButton;
+    private Button mSaveUser;
     private Location mLastLocation;
     public GoogleApiClient mGoogleApiClient;
 
@@ -49,6 +50,13 @@ public class CreateNewClientActivity extends AppCompatActivity implements Google
             @Override
             public void onClick(View view) {
                 mGetLocationButton.setText(getLocation());
+            }
+        });
+        mSaveUser = (Button) findViewById(R.id.submit_client_button);
+        mSaveUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
             }
         });
 
