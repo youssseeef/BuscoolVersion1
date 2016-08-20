@@ -14,4 +14,5 @@
     <string name="new_client_title">Create a client</string>
     <string name="set_location">Set Location</string>
     <string name="save_client">Save</string>
+    <string name="choose_number">Choose a number for the trip</string>
 </resources>

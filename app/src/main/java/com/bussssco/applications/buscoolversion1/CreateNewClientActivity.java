@@ -1,6 +1,5 @@
 package com.bussssco.applications.buscoolversion1;
 
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -11,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bussssco.applications.buscoolversion1.model.Client;
+import com.bussssco.applications.buscoolversion1.model.ClientLab;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
@@ -23,9 +24,10 @@ public class CreateNewClientActivity extends AppCompatActivity implements Google
     private LocationManager loc;
     private Button mGetLocationButton;
     private Button mSaveUser;
+    private EditText mClientNameEditText;
+    private EditText mClientPhoneEditText;
     private Location mLastLocation;
     public GoogleApiClient mGoogleApiClient;
-
 
 
     @Override
@@ -44,7 +46,8 @@ public class CreateNewClientActivity extends AppCompatActivity implements Google
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(5000);
-
+        mClientNameEditText = (EditText) findViewById(R.id.get_client_name);
+        mClientPhoneEditText = (EditText) findViewById(R.id.get_phone_text_view);
         mGetLocationButton = (Button) findViewById(R.id.get_location_Button);
         mGetLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +59,16 @@ public class CreateNewClientActivity extends AppCompatActivity implements Google
         mSaveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                ClientLab cl = ClientLab.get(getApplicationContext());
+                int tripId = Integer.parseInt(getIntent().getStringExtra(AddClientsActivity.ADD_CLIENT_TO_CREATE_NEW));
+                Client client = Client.newClient(
+                        tripId,
+                        mClientNameEditText.getText().toString(),
+                        mClientPhoneEditText.getText().toString(),
+                        mLastLocation.getLatitude(),
+                        mLastLocation.getLongitude());
+                cl.addClient(client);
+                finish();
             }
         });
 
