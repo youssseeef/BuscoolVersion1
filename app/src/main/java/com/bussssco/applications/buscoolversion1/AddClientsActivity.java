@@ -1,5 +1,6 @@
 package com.bussssco.applications.buscoolversion1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 public class AddClientsActivity extends AppCompatActivity {
+    public static final String ADD_CLIENT_TO_CREATE_NEW = "addclientactivity";
     private TextView mTripTitleView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +20,7 @@ public class AddClientsActivity extends AppCompatActivity {
         String text = getIntent().getStringExtra(CreateTripActivity.CLIENT_TRIP);
         mTripTitleView = (TextView) findViewById(R.id.textviewtitle);
         mTripTitleView.setText(text);
+
 
     }
 
@@ -32,7 +35,17 @@ public class AddClientsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-         super.onOptionsItemSelected(item)
-         ;return false;//For now
+
+        switch(item.getItemId()){
+            case R.id.create_client_in_a_trip:
+                Intent intent = new Intent(AddClientsActivity.this,CreateNewClientActivity.class);
+                intent.putExtra(ADD_CLIENT_TO_CREATE_NEW,mTripTitleView.getText());
+                startActivity(intent);
+                return true;
+            default:
+                super.onOptionsItemSelected(item);
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
